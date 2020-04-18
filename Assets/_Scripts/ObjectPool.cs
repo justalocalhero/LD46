@@ -4,15 +4,26 @@ using UnityEngine;
 
 public class ObjectPool : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public GameObject toPool;
+    public int numberToPool;
+
+    public Queue<GameObject> pool = new Queue<GameObject>();
+
+    public void Start()
     {
-        
+        for(int i = 0; i < numberToPool; i++)
+        {
+            GameObject toEnqueue = Instantiate(toPool);
+            toEnqueue.SetActive(false);
+            pool.Enqueue(toEnqueue);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public GameObject Get()
     {
-        
+        GameObject toReturn = pool.Dequeue();
+        pool.Enqueue(toReturn);
+
+        return toReturn;
     }
 }
