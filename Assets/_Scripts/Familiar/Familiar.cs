@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Familiar : MonoBehaviour
 {
+    public bool alive;
     public Sprite spookSprite;
     public SpriteRenderer spriteRenderer;
     private bool spooked = false;
@@ -17,12 +18,15 @@ public class Familiar : MonoBehaviour
 
     void Start()
     {
+        alive = true;
         behaviours = GetComponents<IBehaviour>();
         AI();
     }
 
     void FixedUpdate()
     {
+        if (!alive) return;
+
         if(spookTimeout > 0) spookTimeout -= Time.fixedDeltaTime;
         if (!spooked) return;
         spookTimer -= Time.fixedDeltaTime;
@@ -39,7 +43,6 @@ public class Familiar : MonoBehaviour
     {
         if (col.CompareTag("Projectile"))
         {
-            gameObject.SetActive(false);
             death.Die();
         }
 
@@ -53,8 +56,14 @@ public class Familiar : MonoBehaviour
         }
     }
 
+    public void Deactivate()
+    {
+        if (currentBehaviour != null) currentBehaviour.Deactivate();
+    }
     public void AI()
     {
+        if (!alive) return;
+
         currentBehaviour = behaviours[Random.Range(0, behaviours.Length)];
         currentBehaviour.Activate();
     }

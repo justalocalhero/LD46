@@ -14,6 +14,9 @@ TextureImporter:
   - first:
       213: 6002840866345723114
     second: Wizard_3
+  - first:
+      213: -514450527010680930
+    second: Wizard_4
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -125,8 +128,8 @@ TextureImporter:
       name: Wizard_0
       rect:
         serializedVersion: 2
-        x: 6
-        y: 2
+        x: 70
+        y: 66
         width: 19
         height: 53
       alignment: 0
@@ -180,6 +183,48 @@ TextureImporter:
       bones: []
       spriteID: ae42cb9a6ff5e4350800000000000000
       internalID: 6002840866345723114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wizard_1
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 65
+        width: 21
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f3eee63cd5f8004c0800000000000000
+      internalID: -4323298009402118593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wizard_4
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1
+        width: 28
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9f040ba8fd4cd8f0800000000000000
+      internalID: -514450527010680930
       vertices: []
       indices: 
       edges: []

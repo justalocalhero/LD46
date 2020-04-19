@@ -34,7 +34,7 @@ public class Lick : MonoBehaviour, IBehaviour
 
         float ratio = Mathf.Clamp(lickTimer / lickTime, 0, 1);
         int frame = Mathf.FloorToInt(animationsPerCycle * lickSprites.Length * ratio) % lickSprites.Length;
-        Debug.Log(frame);
+
         familiar.SetSprite(lickSprites[frame]);
 
         if (lickTimer <= 0)

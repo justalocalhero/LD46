@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Wizard : MonoBehaviour
 {
+    public bool alive;
     public SpriteRenderer spriteRenderer;
     public Familiar familiar;
     public ObjectPool afterImagePool;
@@ -16,9 +17,13 @@ public class Wizard : MonoBehaviour
     private float idleTimer;
     private int idleIndex;
 
+    public void Start()
+    {
+        alive = true;
+    }
     public void Update()
     {
-        if(blinking)
+        if (blinking)
         {
             currentBlinkSpriteTimer -= Time.deltaTime;
 
@@ -30,7 +35,7 @@ public class Wizard : MonoBehaviour
             }
         }
 
-        else
+        else if(alive)
         {
             idleTimer -= Time.deltaTime;
             if(idleTimer <= 0)
@@ -47,6 +52,7 @@ public class Wizard : MonoBehaviour
 
     public void Blink(Vector3 p1, Vector3 p2)
     {
+        if (!alive) return;
 
         Vector3 half = (p1 + p2) / 2f;
         Vector3 bearing = familiar.transform.position - half;
@@ -61,6 +67,8 @@ public class Wizard : MonoBehaviour
 
     void Scatter(Vector3 from)
     {
+        if (!alive) return;
+
         Vector3 bearing = transform.position - from;
         bearing.Normalize();
 
@@ -70,6 +78,8 @@ public class Wizard : MonoBehaviour
 
     private void Blink(Vector3 pos)
     {
+        if (!alive) return;
+
         SetSprite(blinkSprite);
         blinking = true;
         currentBlinkSpriteTimer = blinkSpriteTime;

@@ -1513,6 +1513,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b86a79118a8a1d14d9b3629dc75fff7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wizard: {fileID: 1634735828}
+  familiar: {fileID: 1909983915}
   hazardManager: {fileID: 951675596}
   objectPools:
   - {fileID: 722986950}
@@ -1524,7 +1526,21 @@ MonoBehaviour:
   - {fileID: 1871188043}
   - {fileID: 1201428246}
   dying: 0
-  deathTime: 5
+  familiarDeathStart: 1
+  familiarDeathStop: 2
+  wizardDeathStart: 2
+  wizardDeathStop: 4
+  transitionTime: 6
+  familiarDeathSprites:
+  - {fileID: 1203931930340233624, guid: 22385e10df9383442914bee363b02bfd, type: 3}
+  - {fileID: -47549959599153118, guid: 22385e10df9383442914bee363b02bfd, type: 3}
+  - {fileID: 1474257528332749294, guid: 22385e10df9383442914bee363b02bfd, type: 3}
+  - {fileID: -1379809762268123913, guid: 22385e10df9383442914bee363b02bfd, type: 3}
+  - {fileID: 7103691426890469963, guid: 22385e10df9383442914bee363b02bfd, type: 3}
+  - {fileID: -8078959976673959835, guid: 22385e10df9383442914bee363b02bfd, type: 3}
+  wizardDeathSprites:
+  - {fileID: -5959617307868019196, guid: bf5efccfd7470024c85b6a7ddfab31c4, type: 3}
+  - {fileID: -4323298009402118593, guid: bf5efccfd7470024c85b6a7ddfab31c4, type: 3}
 --- !u!4 &1710105864
 Transform:
   m_ObjectHideFlags: 0

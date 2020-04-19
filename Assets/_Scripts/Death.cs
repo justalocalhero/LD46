@@ -5,14 +5,22 @@ using UnityEngine.SceneManagement;
 
 public class Death : MonoBehaviour
 {
+    public Wizard wizard;
+    public Familiar familiar;
     public HazardManager hazardManager;
     public ObjectPool[] objectPools;
     public bool dying;
-    public float deathTime;
+    public float familiarDeathStart, familiarDeathStop, wizardDeathStart, wizardDeathStop, transitionTime;
+    private float currentTime;
+    public Sprite[] familiarDeathSprites;
+    public Sprite[] wizardDeathSprites;
 
 
     public void Die()
     {
+        familiar.Deactivate();
+        familiar.alive = false;
+        wizard.alive = false;
         dying = true;
         hazardManager.active = false;
         PlayerPrefs.SetInt("Score", hazardManager.currentWave);
@@ -27,12 +35,41 @@ public class Death : MonoBehaviour
     {
         if (!dying) return;
 
-        deathTime -= Time.deltaTime;
+        if(currentTime >= familiarDeathStart && currentTime <= familiarDeathStop)
+        {
+            float ratio = (currentTime - familiarDeathStart) / (familiarDeathStop - familiarDeathStart);
 
-        if(deathTime <= 0)
+            int sprites = familiarDeathSprites.Length;
+
+            int frame = Mathf.FloorToInt(sprites * ratio) % sprites;
+
+            familiar.SetSprite(familiarDeathSprites[frame]);
+             
+        }
+
+        if (currentTime >= wizardDeathStart && currentTime <= wizardDeathStop)
+        {
+            float ratio = (currentTime - wizardDeathStart) / (wizardDeathStop - wizardDeathStart);
+
+            int sprites = wizardDeathSprites.Length;
+
+            int frame = Mathf.FloorToInt(sprites * ratio) % sprites;
+
+            wizard.SetSprite(wizardDeathSprites[frame]);
+
+        }
+
+        if(currentTime > transitionTime)
         {
             SceneManager.LoadScene("End");
         }
+
+        if(currentTime > familiarDeathStop)
+        {
+            familiar.gameObject.SetActive(false);
+        }
+
+        currentTime += Time.deltaTime;
     }
 
     
