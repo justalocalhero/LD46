@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class DaggerSpawn : MonoBehaviour, IHazard
 {
@@ -10,26 +8,39 @@ public class DaggerSpawn : MonoBehaviour, IHazard
     public ObjectPool daggerSpawner;
     public Familiar familiar;
 
+    private float currentTimer;
+    public float fireTime;
+    private int index;
+    private int count;
+
+
     public void Update()
     {
-        if(Input.GetKeyDown(KeyCode.T))
+        if (index >= count) return;
+        currentTimer -= Time.deltaTime;
+        if (currentTimer <= 0)
         {
-            Fire(1);
+            index++;
+            currentTimer += fireTime;
+            Fire();
         }
+    }
+
+    public void Fire()
+    {
+        GameObject go = daggerSpawner.Get();
+        Dagger dagger = go.GetComponent<Dagger>();
+        go.transform.position = transform.position;
+        dagger.bearing = familiar.transform.position - transform.position;
+
+        go.SetActive(true);
+
     }
 
     public void Fire(int wave)
     {
-        int count = wave;
+        count = 1 + wave / 50;
 
-        for (int i = 0; i < count; i++)
-        {
-            GameObject go = daggerSpawner.Get();
-            Dagger dagger = go.GetComponent<Dagger>();
-            go.transform.position = transform.position;
-            dagger.target = familiar.transform.position;
-
-            go.SetActive(true);
-        }
+        index = 0;
     }
 }

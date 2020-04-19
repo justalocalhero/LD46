@@ -12,9 +12,13 @@ GameObject:
   - component: {fileID: 3169797359200497842}
   - component: {fileID: 3169797359200497841}
   - component: {fileID: -2359504822654179907}
+  - component: {fileID: 1909983912}
+  - component: {fileID: 1909983911}
+  - component: {fileID: 1909983913}
+  - component: {fileID: 1909983916}
   m_Layer: 0
   m_Name: Familiar
-  m_TagString: Projectile
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 3169797359200497840}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.25, y: 0.25, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -72,12 +76,13 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 626a68f4e0c88cf4fb8e981fa9b0c022, type: 3}
+  m_Sprite: {fileID: 1203931930340233624, guid: 22385e10df9383442914bee363b02bfd,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.75, y: 0.875}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -96,18 +101,18 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.06867553, y: -0.120999694}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
+    oldSize: {x: 0.75, y: 0.875}
+    newSize: {x: 0.75, y: 0.875}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.37865004, y: 0.28708196}
   m_EdgeRadius: 0
 --- !u!114 &-2359504822654179907
 MonoBehaviour:
@@ -121,3 +126,92 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1409d22c0ced7342bd1f0c6eaaaf986, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spookSprite: {fileID: 1921700594306821314, guid: 22385e10df9383442914bee363b02bfd,
+    type: 3}
+  spriteRenderer: {fileID: 3169797359200497842}
+  death: {fileID: 0}
+--- !u!50 &1909983912
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3169797359200497840}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &1909983911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3169797359200497840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15acab3168d2c974cb74c0dc8f71e8b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  finalRadius: 3
+  scatteringRadius: 1
+  speed: 4
+  maxMoveTime: 0.25
+  maxWaitTime: 0.3
+  maxJumps: 4
+  currentState: 0
+  waitSprite: {fileID: 876454191529661381, guid: 22385e10df9383442914bee363b02bfd,
+    type: 3}
+  pounceSprite: {fileID: 4740557562178750728, guid: 22385e10df9383442914bee363b02bfd,
+    type: 3}
+--- !u!114 &1909983913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3169797359200497840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56afbcb1c2f0f1b4fb79415866e0a814, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lickTime: 2
+  lickSprites:
+  - {fileID: 1203931930340233624, guid: 22385e10df9383442914bee363b02bfd, type: 3}
+  - {fileID: 4050216149827782172, guid: 22385e10df9383442914bee363b02bfd, type: 3}
+  - {fileID: 2564249892617641068, guid: 22385e10df9383442914bee363b02bfd, type: 3}
+  animationsPerCycle: 2
+--- !u!114 &1909983916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3169797359200497840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f65c31ac0f7a3540a1c0fb406a103e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scatteringRadius: 0.5
+  speed: 3
+  maxMoveTime: 0.2
+  maxWaitTime: 0.12
+  maxJumps: 6
+  currentState: 0
+  waitSprite: {fileID: 876454191529661381, guid: 22385e10df9383442914bee363b02bfd,
+    type: 3}
+  pounceSprite: {fileID: 4740557562178750728, guid: 22385e10df9383442914bee363b02bfd,
+    type: 3}
+  wizard: {fileID: 0}

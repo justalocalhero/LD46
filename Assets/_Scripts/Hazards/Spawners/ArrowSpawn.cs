@@ -5,26 +5,46 @@ using UnityEngine;
 public class ArrowSpawn : MonoBehaviour, IHazard
 {
     public int _difficulty;
+    public float fireTime;
     public int difficulty { get { return _difficulty; } }
+    private int count, index;
+    private float dx;
+    private float currentTimer;
 
     public ObjectPool arrowSpawner;
 
     public void Fire(int wave)
     {
         float width = transform.localScale.x;
-        int count = wave;
-        float dx = width / count;
+        count = 5 + wave / 20;
+        index = 0;
 
-        for (int i = 0; i < count; i++)
+        dx = width / count;
+    }
+
+    public void Update()
+    {
+        if (index >= count) return;
+        currentTimer -= Time.deltaTime;
+        if (currentTimer <= 0)
         {
-            GameObject go = arrowSpawner.Get();
-            Arrow arrow = go.GetComponent<Arrow>();
-            arrow.bearing = Vector3.down;
-            Vector3 position = transform.position;
-            position.x += ((i - (count - 1) / 2.0f) * dx);
-            go.transform.position = position;
-
-            go.SetActive(true);
+            index++;
+            currentTimer += fireTime;
+            Fire();
         }
+    }
+
+    private void Fire()
+    {
+        GameObject go = arrowSpawner.Get();
+        Arrow arrow = go.GetComponent<Arrow>();
+        arrow.speed += Random.Range(0, 3);
+        arrow.bearing = Vector3.down;
+        Vector3 position = transform.position;
+        position.x += ((-(count + 1) / 2f + index) * dx);
+        go.transform.position = position;
+
+        go.SetActive(true);
+        
     }
 }

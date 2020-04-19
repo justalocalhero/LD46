@@ -10,8 +10,9 @@ public class RecordMouse : MonoBehaviour
     private float timer;
 
     public BuildBox buildBox;
+    public Wizard wizard;
     public float maxTimer, minDistance;
-    private Vector3 p1, p2;
+    private Vector3 p0, p1, p2;
     private int count;
 
 
@@ -40,6 +41,11 @@ public class RecordMouse : MonoBehaviour
             Vector3 mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
             mousePosition.z = 0;
 
+            if(count == 0)
+            {
+                p0 = mousePosition;
+            }
+
             if (count >= 1 && Vector3.Distance(p1, mousePosition) <= minDistance) return;
 
             p1 = p2;
@@ -48,6 +54,10 @@ public class RecordMouse : MonoBehaviour
             if (++count <= 1) return;
 
             buildBox.Build(p1, p2);
+
+            if (count != 4) return;
+
+            wizard.Blink(p0, p2);
         }
 
         if(Input.GetMouseButtonUp(0))

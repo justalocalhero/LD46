@@ -9,7 +9,7 @@ public class Dart : MonoBehaviour
 
     void FixedUpdate()
     {
-        transform.position = Vector3.MoveTowards(transform.position, transform.position + bearing, speed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, transform.position + bearing, speed * Time.fixedDeltaTime);
     }
 
     void OnTriggerStay2D(Collider2D col)

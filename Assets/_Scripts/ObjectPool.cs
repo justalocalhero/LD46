@@ -26,4 +26,12 @@ public class ObjectPool : MonoBehaviour
 
         return toReturn;
     }
+
+    public void Kill()
+    {
+        foreach(GameObject go in pool)
+        {
+            go.SetActive(false);
+        }
+    }
 }

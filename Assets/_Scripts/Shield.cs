@@ -5,7 +5,7 @@ using UnityEngine;
 public class Shield : MonoBehaviour
 {
     private float lifetime;
-    private float maxLifetime = 1;
+    private float maxLifetime = 1.25f;
     void OnEnable()
     {
         lifetime = maxLifetime;

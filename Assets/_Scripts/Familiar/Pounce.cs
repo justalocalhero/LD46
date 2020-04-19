@@ -2,9 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Pounce : MonoBehaviour
+public class Pounce : MonoBehaviour, IBehaviour
 {
-    public Familiar familiar;
     private bool active;
     private Vector3 finalTarget;
     private Vector3 currentTarget;
@@ -13,13 +12,28 @@ public class Pounce : MonoBehaviour
     private int jumpsRemaining;
     private float currentTimer;
     public PounceState currentState;
+    public Sprite waitSprite;
+    public Sprite pounceSprite;
+
+    private Familiar familiar;
+
+    public void Start()
+    {
+        familiar = GetComponent<Familiar>();
+    }
 
     public void Activate()
     {
         active = true;
+        currentTimer = 0;
         currentState = PounceState.wait;
         finalTarget = Quaternion.Euler(0f, 0f, Random.Range(0, 360f)) * (Vector2.right * finalRadius);
         jumpsRemaining = maxJumps;
+    }
+
+    public void Deactivate()
+    {
+        active = false;
     }
 
     void FixedUpdate()
@@ -55,6 +69,10 @@ public class Pounce : MonoBehaviour
 
         currentTarget = direction + scattering;
 
+        Vector3 localScale = transform.localScale;
+        localScale.x = (currentTarget.x > transform.position.x) ? .5f : -.5f;
+        transform.localScale = localScale;
+
         currentTimer += maxMoveTime;
         jumpsRemaining--;
         currentState = PounceState.move;
@@ -62,6 +80,8 @@ public class Pounce : MonoBehaviour
 
     void Wait()
     {
+        familiar.SetSprite(waitSprite);
+
         if (jumpsRemaining <= 0)
         {
             currentState = PounceState.finished;
@@ -77,6 +97,8 @@ public class Pounce : MonoBehaviour
     
     void Move()
     {
+        familiar.SetSprite(pounceSprite);
+
         currentTimer -= Time.deltaTime;
         transform.position = Vector3.MoveTowards(transform.position, currentTarget, Time.deltaTime * speed);
 

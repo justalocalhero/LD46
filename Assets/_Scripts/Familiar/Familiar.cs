@@ -4,11 +4,35 @@ using UnityEngine;
 
 public class Familiar : MonoBehaviour
 {
-    public Pounce pounce;
+    public Sprite spookSprite;
+    public SpriteRenderer spriteRenderer;
+    private bool spooked = false;
+    private float spookTimer, spookTimeout;
+
+    public IBehaviour[] behaviours;
+    private IBehaviour currentBehaviour;
+    [System.NonSerialized]
+    public Vector3 bearing;
+    public Death death;
 
     void Start()
     {
+        behaviours = GetComponents<IBehaviour>();
         AI();
+    }
+
+    void FixedUpdate()
+    {
+        if(spookTimeout > 0) spookTimeout -= Time.fixedDeltaTime;
+        if (!spooked) return;
+        spookTimer -= Time.fixedDeltaTime;
+        transform.position = Vector3.MoveTowards(transform.position, transform.position + bearing, 8 * Time.fixedDeltaTime);
+        if (spookTimer <= 0)
+        {
+            spooked = false;
+            AI();
+        }
+
     }
 
     void OnTriggerEnter2D(Collider2D col)
@@ -16,11 +40,45 @@ public class Familiar : MonoBehaviour
         if (col.CompareTag("Projectile"))
         {
             gameObject.SetActive(false);
+            death.Die();
+        }
+
+        if(col.CompareTag("Shield"))
+        {
+            if (!spooked && spookTimeout <= 0)
+            {
+                bearing = transform.position - col.gameObject.transform.position;
+                Spook(bearing);
+            }
         }
     }
 
     public void AI()
     {
-        pounce.Activate();
+        currentBehaviour = behaviours[Random.Range(0, behaviours.Length)];
+        currentBehaviour.Activate();
     }
+
+    public void Spook(Vector3 bearing)
+    {
+        this.bearing = bearing;
+        SetSprite(spookSprite);
+
+        spooked = true;
+        spookTimer = .12f;
+        spookTimeout = 1;
+
+        currentBehaviour.Deactivate();
+    }
+
+    public void SetSprite(Sprite sprite)
+    {
+        spriteRenderer.sprite = sprite;
+    }
+}
+
+public interface IBehaviour
+{
+    void Activate();
+    void Deactivate();
 }
