@@ -18,17 +18,18 @@ public class Death : MonoBehaviour
 
     public void Die()
     {
+        foreach (ObjectPool pool in objectPools)
+        {
+            pool.Kill();
+        }
+
+        wizard.Blink(familiar.transform.position + new Vector3(1, 1, 0));
         familiar.Deactivate();
         familiar.alive = false;
         wizard.alive = false;
         dying = true;
-        hazardManager.active = false;
+        hazardManager.Deactivate();
         PlayerPrefs.SetInt("Score", hazardManager.currentWave);
-
-        foreach(ObjectPool pool in objectPools)
-        {
-            pool.Kill();
-        }
     }
 
     public void Update()

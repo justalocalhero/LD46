@@ -43,6 +43,15 @@ public class HazardManager : MonoBehaviour
         timeout -= Time.deltaTime;
     }
 
+    public void Deactivate()
+    {
+        active = false;
+        foreach(IHazard hazard in hazards)
+        {
+            hazard.Deactivate();
+        }
+    }
+
     public void Fire()
     {
         currentWave = Mathf.Clamp(currentWave, 0, maxWave);
@@ -70,5 +79,6 @@ public interface IHazard
 {
     int difficulty { get; }
     void Fire(int wave);
+    void Deactivate();
 
 }

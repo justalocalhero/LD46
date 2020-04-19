@@ -16,9 +16,22 @@ public class FireballSpawn : MonoBehaviour, IHazard
     private float currentTimer;
     public float fireTime;
 
+    private bool active;
+
+    public void Start()
+    {
+        active = true;
+    }
+
+    public void Deactivate()
+    {
+        active = false;
+    }
+
 
     public void Update()
     {
+        if (!active) return;
         if (index >= count) return;
         currentTimer -= Time.deltaTime;
         if (currentTimer <= 0)

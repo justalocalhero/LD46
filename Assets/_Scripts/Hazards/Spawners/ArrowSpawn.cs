@@ -13,6 +13,19 @@ public class ArrowSpawn : MonoBehaviour, IHazard
 
     public ObjectPool arrowSpawner;
 
+    private bool active;
+
+    public void Start()
+    {
+        active = true;
+    }
+
+    public void Deactivate()
+    {
+        active = false;
+    }
+
+
     public void Fire(int wave)
     {
         float width = transform.localScale.x;
@@ -21,9 +34,9 @@ public class ArrowSpawn : MonoBehaviour, IHazard
 
         dx = width / count;
     }
-
     public void Update()
     {
+        if (!active) return;
         if (index >= count) return;
         currentTimer -= Time.deltaTime;
         if (currentTimer <= 0)

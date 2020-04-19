@@ -13,9 +13,22 @@ public class DaggerSpawn : MonoBehaviour, IHazard
     private int index;
     private int count;
 
+    private bool active;
+
+    public void Start()
+    {
+        active = true;
+    }
+
+    public void Deactivate()
+    {
+        active = false;
+    }
+
 
     public void Update()
     {
+        if (!active) return;
         if (index >= count) return;
         currentTimer -= Time.deltaTime;
         if (currentTimer <= 0)

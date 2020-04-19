@@ -76,7 +76,7 @@ public class Wizard : MonoBehaviour
 
     }
 
-    private void Blink(Vector3 pos)
+    public void Blink(Vector3 pos)
     {
         if (!alive) return;
 
